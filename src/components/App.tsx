@@ -1,15 +1,25 @@
-import React, { useState } from "react";
-import "./styles.css";
-import { createBoard, forEachCell, getGameStatus } from "./Board";
-import produce from "immer";
+import { produce } from "immer";
+import { useState } from "react";
+import {
+  Board,
+  Cell,
+  createBoard,
+  forEachCell,
+  getGameStatus,
+} from "./Board.tsx";
 
 const BOARD_SIZE = 5;
 
-const handleCellClick = (cell, board, setBoard, setIsFinished) => {
-  const newBoard = produce(board, draft => {
+const handleCellClick = (
+  cell: Cell,
+  board: Board,
+  setBoard: (b: Board) => any,
+  setIsFinished: (val: boolean) => any,
+) => {
+  const newBoard = produce(board, (draft) => {
     if (cell.val === -1) {
       draft[cell.x][cell.y].backgroundColor = "red";
-      forEachCell(board, cell => {
+      forEachCell(board, (cell) => {
         cell.revealed = true;
       });
     } else {
@@ -62,10 +72,10 @@ export default function App() {
             {board.map((row, rowIndex) => {
               return (
                 <tr key={rowIndex}>
-                  {row.map(cell => (
+                  {row.map((cell) => (
                     <td
                       style={{
-                        backgroundColor: cell.backgroundColor || ""
+                        backgroundColor: cell.backgroundColor || "",
                       }}
                       key={cell.y}
                       onClick={
@@ -76,7 +86,7 @@ export default function App() {
                                 cell,
                                 board,
                                 setBoard,
-                                setIsFinished
+                                setIsFinished,
                               );
                             }
                       }

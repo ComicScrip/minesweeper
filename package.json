@@ -1,29 +1,26 @@
 {
-  "name": "minesweeper",
+  "name": "react-template",
   "version": "1.0.0",
-  "description": "",
-  "keywords": [],
-  "main": "src/index.js",
+  "scripts": {
+    "dev": "farm start",
+    "start": "farm start",
+    "build": "farm build",
+    "preview": "farm preview",
+    "clean": "farm clean"
+  },
   "dependencies": {
-    "immer": "6.0.9",
-    "lodash": "4.17.15",
-    "react": "16.12.0",
-    "react-dom": "16.12.0",
-    "react-scripts": "3.0.1"
+    "immer": "^10.1.1",
+    "prettier-plugin-organize-imports": "^4.0.0",
+    "react": "18",
+    "react-dom": "18"
   },
   "devDependencies": {
-    "typescript": "3.8.3"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+    "@farmfe/cli": "^1.0.2",
+    "@farmfe/core": "^1.2.4",
+    "@farmfe/plugin-react": "^1.1.0",
+    "@types/react": "18",
+    "core-js": "^3.36.1",
+    "@types/react-dom": "18",
+    "react-refresh": "^0.14.0"
+  }
 }

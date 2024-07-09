@@ -1,12 +1,22 @@
-export const forEachCell = (board, fn) => {
-  board.forEach(row => {
-    row.forEach(cell => {
+export type Cell = {
+  x: number;
+  y: number;
+  val: -1 | null | number;
+  revealed: boolean;
+  backgroundColor: "red" | "green";
+};
+
+export type Board = Cell[][];
+
+export const forEachCell = (board: Board, fn: (c: Cell) => any) => {
+  board.forEach((row) => {
+    row.forEach((cell) => {
       fn(cell);
     });
   });
 };
 
-export const getNeighbors = (board, cell) => {
+export const getNeighbors = (board: Board, cell: Cell) => {
   const neighbors = [];
   const boardLastIndex = board.length - 1;
 
@@ -27,23 +37,23 @@ export const getNeighbors = (board, cell) => {
   return neighbors;
 };
 
-export const populateWithBombs = (board, bombRatio = 0.2) => {
-  forEachCell(board, cell => {
+export const populateWithBombs = (board: Board, bombRatio = 0.2) => {
+  forEachCell(board, (cell) => {
     cell.val = Math.random() < bombRatio ? -1 : null;
   });
 };
 
-export const populateWithNeighborsCount = (board, bombRatio = 0.2) => {
-  forEachCell(board, cell => {
+export const populateWithNeighborsCount = (board: Board, bombRatio = 0.2) => {
+  forEachCell(board, (cell) => {
     if (cell.val !== -1) {
       cell.val = getNeighbors(board, cell).filter(
-        neighbor => neighbor.val === -1
+        (neighbor) => neighbor.val === -1,
       ).length;
     }
   });
 };
 
-export const createEmptyBoard = size => {
+export const createEmptyBoard = (size: number) => {
   const cells = new Array(size);
   for (let x = 0; x < size; x++) {
     cells[x] = new Array(size);
@@ -54,10 +64,10 @@ export const createEmptyBoard = size => {
   return cells;
 };
 
-export const getGameStatus = board => {
+export const getGameStatus = (board: Board) => {
   let status = "playing";
   let cellsLeftToWin = board.length * board.length;
-  forEachCell(board, cell => {
+  forEachCell(board, (cell) => {
     if (cell.val === -1) {
       if (cell.revealed) status = "lost";
       else cellsLeftToWin--;
@@ -70,7 +80,7 @@ export const getGameStatus = board => {
   return status;
 };
 
-export const createBoard = (size, bombRatio) => {
+export const createBoard = (size: number, bombRatio: number) => {
   const b = createEmptyBoard(size);
   populateWithBombs(b, bombRatio);
   populateWithNeighborsCount(b);
